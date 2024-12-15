@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <title>高德地图</title>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=YOUR_API_KEY"></script>
+    <script type="text/javascript" src="https://webapi.amap.com/heatmap?v=2.0&key=YOUR_API_KEY"></script>
+    <style>
+        /* 设置地图容器的宽高 */
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        // 创建地图实例
+        var map = new AMap.Map('map', {
+            zoom: 10,  // 设置地图初始缩放级别
+            center: [116.397428, 39.90923],  // 设置地图中心点坐标 (这里是北京)
+            viewMode: '3D'  // 开启 3D 地图
+        });
+
+        // 创建热力图
+        var heatmap = new AMap.Heatmap(map, {
+            radius: 25,  // 热力图半径
+            opacity: [0, 0.8]  // 热力图透明度
+        });
+
+        // 模拟的热力数据（你需要替换成从数据库获取的情感标签位置数据）
+        var data = [
+            {lng: 116.397428, lat: 39.90923, count: 100},
+            {lng: 116.405285, lat: 39.904989, count: 200},
+            {lng: 116.418261, lat: 39.913181, count: 300}
+        ];
+
+        // 设置热力图数据
+        heatmap.setDataSet({
+            data: data,
+            max: 1000  // 设置热力图的最大值
+        });
+    </script>
+</body>
+</html>
