@@ -1,47 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <title>高德地图</title>
-    <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=YOUR_API_KEY"></script>
-    <script type="text/javascript" src="https://webapi.amap.com/heatmap?v=2.0&key=YOUR_API_KEY"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情感地图演示</title>
     <style>
-        /* 设置地图容器的宽高 */
+        /* 设置地图容器的高度 */
         #map {
             width: 100%;
-            height: 100%;
+            height: 100vh;
         }
     </style>
+    <script src="https://webapi.amap.com/maps?v=1.4.15&key=7fb3297b3e74e183521f0706b2a8c80b"></script> <!-- 高德地图 API -->
+    <script src="https://webapi.amap.com/loader.js"></script> <!-- 高德热力图插件 -->
 </head>
 <body>
-    <div id="map"></div>
-    <script>
-        // 创建地图实例
-        var map = new AMap.Map('map', {
-            zoom: 10,  // 设置地图初始缩放级别
-            center: [116.397428, 39.90923],  // 设置地图中心点坐标 (这里是北京)
-            viewMode: '3D'  // 开启 3D 地图
-        });
 
-        // 创建热力图
-        var heatmap = new AMap.Heatmap(map, {
-            radius: 25,  // 热力图半径
-            opacity: [0, 0.8]  // 热力图透明度
-        });
+<div id="map"></div>
 
-        // 模拟的热力数据（你需要替换成从数据库获取的情感标签位置数据）
-        var data = [
-            {lng: 116.397428, lat: 39.90923, count: 100},
-            {lng: 116.405285, lat: 39.904989, count: 200},
-            {lng: 116.418261, lat: 39.913181, count: 300}
-        ];
+<script>
+    // 初始化地图
+    var map = new AMap.Map('map', {
+        zoom: 10,  // 初始化地图级别
+        center: [116.397428, 39.90923]  // 设置地图中心点，默认是北京
+    });
 
-        // 设置热力图数据
-        heatmap.setDataSet({
-            data: data,
-            max: 1000  // 设置热力图的最大值
-        });
-    </script>
+    // 热力图数据，使用经纬度和权重表示情感数据强度
+    var heatmapData = [
+        { lng: 116.397428, lat: 39.90923, weight: 100 }, // 北京
+        { lng: 116.407428, lat: 39.90823, weight: 80 },  // 北京某区域
+        { lng: 116.357428, lat: 39.90923, weight: 60 },  // 北京某区域
+        // 你可以添加更多的经纬度点来表示不同的情感标签
+    ];
+
+    // 创建热力图实例
+    var heatmap = new AMap.Heatmap(map, {
+        radius: 25,  // 热力图半径
+        opacity: [0, 0.8],  // 热力图透明度
+    });
+
+    // 将热力图数据添加到地图
+    heatmap.setDataSet({
+        data: heatmapData,
+        max: 100  // 设置最大值
+    });
+
+    // 这里你可以根据需要调整更多的热力图参数
+</script>
+
 </body>
 </html>
